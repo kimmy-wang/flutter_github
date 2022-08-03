@@ -33,82 +33,25 @@ class HomeView extends GetView<HomeController> {
         body: Center(
           child: controller.obx(
             (state) {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 100,
-                  ),
-                  Text(
-                    'total_confirmed'.tr,
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                  Text(
-                    '${state!.global.totalConfirmed}',
-                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'total_deaths'.tr,
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                  Text(
-                    '${state.global.totalDeaths}',
-                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      textStyle: TextStyle(color: Colors.black),
-                      side: BorderSide(
-                        color: Colors.deepPurple,
-                        width: 3,
-                      ),
-                      shape: StadiumBorder(),
-                    ),
-                    onPressed: () async {
-                      final data =
-                          await Get.rootDelegate.toNamed('/home/country');
-                      print('DATA: $data');
-                    },
-                    child: Text(
-                      'fetch_country'.tr,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      textStyle: TextStyle(color: Colors.black),
-                      side: BorderSide(
-                        color: Colors.deepPurple,
-                        width: 3,
-                      ),
-                      shape: StadiumBorder(),
-                    ),
-                    onPressed: () {
-                      Get.updateLocale(Locale('pt', 'BR'));
-                    },
-                    child: Text(
-                      'Update language to Portuguese',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              );
+              return ListView.builder(
+                  itemCount: controller.state!.length,
+                  itemBuilder: (context, index) {
+                    final trending = controller.state![index];
+                    return ListTile(
+                      onTap: () {
+                        Get.rootDelegate
+                            .toNamed('/home/details?index=$index');
+                      },
+                      // trailing: CircleAvatar(
+                      //   backgroundImage: NetworkImage(
+                      //       "https://flagpedia.net/data/flags/normal/${country.countryCode.toLowerCase()}.png"),
+                      // ),
+                      title: Text(trending.name),
+                      subtitle: Text(
+                        // ignore: lines_longer_than_80_chars
+                          '${trending.description}'),
+                    );
+                  });
             },
           ),
         ),

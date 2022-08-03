@@ -6,11 +6,11 @@ import 'routes/app_pages.dart';
 import 'shared/logger/logger_utils.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const FlutterGitHubApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class FlutterGitHubApp extends StatelessWidget {
+  const FlutterGitHubApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

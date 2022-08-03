@@ -8,14 +8,14 @@ class DetailsView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     final parameter = Get.rootDelegate.parameters;
-    final country = controller.getCountryById(parameter['id'] ?? '');
+    final trending = controller.state![int.tryParse(parameter['index'] ?? "0") ?? 0];
     return Container(
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
           colorFilter: ColorFilter.linearToSrgbGamma(),
           image: NetworkImage(
-              "https://flagpedia.net/data/flags/normal/${country.countryCode.toLowerCase()}.png"),
+              "https://images.pexels.com/photos/3902882/pexels-photo-3902882.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"),
         ),
       ),
       child: BackdropFilter(
@@ -34,47 +34,11 @@ class DetailsView extends GetView<HomeController> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '${country.country}',
+                  '${trending.name}',
                   style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
                   height: 35,
-                ),
-                Text(
-                  'total_confirmed'.tr,
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-                Text(
-                  '${country.totalConfirmed}',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'total_deaths'.tr,
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-                Text(
-                  '${country.totalDeaths}',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  'total_recovered'.tr,
-                  style: TextStyle(
-                    fontSize: 25,
-                  ),
-                ),
-                Text(
-                  '${country.totalRecovered}',
-                  style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                 ),
               ],
             )),

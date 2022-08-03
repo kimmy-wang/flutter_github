@@ -1,6 +1,6 @@
-import '../entity/cases_model.dart';
+import '../entity/trending_model.dart';
 
 // ignore: one_member_abstracts
 abstract class IHomeRepository {
-  Future<CasesModel> getCases();
+  Future<List<TrendingModel>> getTrending();
 }

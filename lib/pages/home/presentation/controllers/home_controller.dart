@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 import '../../domain/adapters/repository_adapter.dart';
-import '../../domain/entity/cases_model.dart';
+import '../../domain/entity/trending_model.dart';
 
-class HomeController extends SuperController<CasesModel> {
+class HomeController extends SuperController<List<TrendingModel>> {
   HomeController({required this.homeRepository});
 
   final IHomeRepository homeRepository;
@@ -13,16 +13,7 @@ class HomeController extends SuperController<CasesModel> {
     super.onInit();
 
     //Loading, Success, Error handle with 1 line of code
-    append(() => homeRepository.getCases);
-  }
-
-  Country getCountryById(String id) {
-    final index = int.tryParse(id);
-    if (index != null) {
-      return state!.countries[index];
-    }
-
-    return state!.countries.first;
+    append(() => homeRepository.getTrending);
   }
 
   @override

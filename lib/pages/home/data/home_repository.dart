@@ -1,5 +1,5 @@
 import '../domain/adapters/repository_adapter.dart';
-import '../domain/entity/cases_model.dart';
+import '../domain/entity/trending_model.dart';
 import 'home_api_provider.dart';
 
 class HomeRepository implements IHomeRepository {
@@ -7,8 +7,8 @@ class HomeRepository implements IHomeRepository {
   final IHomeProvider provider;
 
   @override
-  Future<CasesModel> getCases() async {
-    final cases = await provider.getCases("/summary");
+  Future<List<TrendingModel>> getTrending() async {
+    final cases = await provider.getTrending("/");
     if (cases.status.hasError) {
       return Future.error(cases.statusText!);
     } else {

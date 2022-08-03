@@ -1,19 +1,21 @@
 import 'package:get/get.dart';
-import '../domain/entity/cases_model.dart';
+import '../domain/entity/trending_model.dart';
 
 // ignore: one_member_abstracts
 abstract class IHomeProvider {
-  Future<Response<CasesModel>> getCases(String path);
+  Future<Response<List<TrendingModel>>> getTrending(String path);
 }
 
 class HomeProvider extends GetConnect implements IHomeProvider {
   @override
   void onInit() {
     httpClient.defaultDecoder =
-        (val) => CasesModel.fromJson(val as Map<String, dynamic>);
-    httpClient.baseUrl = 'https://api.covid19api.com';
+        (val) => List<TrendingModel>.from((val as Iterable).map(
+              (x) => TrendingModel.fromJson(x as Map<String, dynamic>),
+        ));
+    httpClient.baseUrl = 'https://api.gitterapp.com';
   }
 
   @override
-  Future<Response<CasesModel>> getCases(String path) => get(path);
+  Future<Response<List<TrendingModel>>> getTrending(String path) => get(path);
 }
