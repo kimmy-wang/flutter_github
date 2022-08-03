@@ -56,13 +56,7 @@ class _RepositoryItemState extends State<RepositoryItem> {
   Widget _content() {
     return [
       _title,
-      Text(
-        '${widget.repository.description}',
-        textAlign: TextAlign.start,
-        style: const TextStyle(
-          fontWeight: FontWeight.w500,
-        ),
-      ),
+      _description,
       _buildBy(context),
       _languageBanner,
     ]
