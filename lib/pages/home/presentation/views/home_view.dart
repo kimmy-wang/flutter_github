@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_github/pages/home/presentation/widgets/repository_item.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
@@ -37,19 +38,16 @@ class HomeView extends GetView<HomeController> {
                   itemCount: controller.state!.length,
                   itemBuilder: (context, index) {
                     final trending = controller.state![index];
-                    return ListTile(
+                    return GestureDetector(
                       onTap: () {
                         Get.rootDelegate
                             .toNamed('/home/details?index=$index');
                       },
-                      // trailing: CircleAvatar(
-                      //   backgroundImage: NetworkImage(
-                      //       "https://flagpedia.net/data/flags/normal/${country.countryCode.toLowerCase()}.png"),
-                      // ),
-                      title: Text(trending.name),
-                      subtitle: Text(
-                        // ignore: lines_longer_than_80_chars
-                          '${trending.description}'),
+                      child: RepositoryItem(
+                        index: index,
+                        repository: trending,
+                        last: index == controller.state!.length - 1,
+                      ),
                     );
                   });
             },
