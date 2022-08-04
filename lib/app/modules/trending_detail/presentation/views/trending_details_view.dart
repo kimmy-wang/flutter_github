@@ -27,6 +27,10 @@ class TrendingDetailsView extends GetView<TrendingDetailController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(controller.repoName),
+        centerTitle: true,
+      ),
       body: Stack(
         children: [
           InAppWebView(

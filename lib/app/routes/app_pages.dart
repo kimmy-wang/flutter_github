@@ -42,7 +42,7 @@ class AppPages {
           name: _Paths.LOGIN,
           page: () => LoginView(),
           binding: LoginBinding(),
-          fullscreenDialog: true,
+          participatesInRootNavigator: true,
         ),
         GetPage(
           preventDuplicates: true,
@@ -63,6 +63,7 @@ class AppPages {
                   name: _Paths.TRENDING_DETAILS,
                   page: () => TrendingDetailsView(),
                   binding: TrendingDetailBinding(),
+                  participatesInRootNavigator: true,
                 ),
               ],
             ),
