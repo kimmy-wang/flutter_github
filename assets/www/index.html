@@ -10,23 +10,21 @@ found in the LICENSE file. -->
 </head>
 <body>
 
-<h1>Local demo page</h1>
+<div id="intro"></div>
 
 <button onclick="send();">Send To Flutter</button>
-
-<div id="test"></div>
 
 </body>
 <script type="text/javascript">
 function send() {
-  if (window.Toaster) {
-    window.Toaster.postMessage('hello from javascript');
+  if (window.flutter_inappwebview) {
+    window.flutter_inappwebview.callHandler('receiveHandler', "Send To Flutter")
   }
 }
 
-function test() {
-  alert('test')
-  document.getElementById("test").innerText = "Test";
-}
+// listen for messages
+window.addEventListener('message', function(event) {
+  document.getElementById('intro').innerText = event.data;
+}, false);
 </script>
 </html>

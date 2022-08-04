@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -44,6 +45,7 @@ class DetailsView extends GetView<DetailController> {
             pullToRefreshController: controller.pullToRefreshController,
             onWebViewCreated: (_controller) {
               controller.webViewController = _controller;
+              registerHandler();
             },
             onLoadStart: (controller, url) {
               // setState(() {
@@ -82,6 +84,7 @@ class DetailsView extends GetView<DetailController> {
             },
             onLoadStop: (_controller, url) async {
               controller.pullToRefreshController.endRefreshing();
+              registerMessageChannel();
               // setState(() {
               //   this.url = url.toString();
               //   urlController.text = this.url;
@@ -110,5 +113,36 @@ class DetailsView extends GetView<DetailController> {
         ],
       ),
     );
+  }
+
+  void registerHandler() {
+    controller.webViewController?.addJavaScriptHandler(handlerName: 'receiveHandler', callback: (args) {
+      // print arguments coming from the JavaScript side!
+      print(args);
+
+      // return data to the JavaScript side!
+      return {
+        'bar': 'bar_value', 'baz': 'baz_value'
+      };
+    });
+  }
+
+  Future<void> registerMessageChannel() async {
+    if (!Platform.isAndroid || await AndroidWebViewFeature.isFeatureSupported(AndroidWebViewFeature.CREATE_WEB_MESSAGE_CHANNEL)) {
+      // wait until the page is loaded, and then create the Web Message Channel
+      var webMessageChannel = await controller.webViewController?.createWebMessageChannel();
+      var port1 = webMessageChannel!.port1;
+      var port2 = webMessageChannel.port2;
+
+      // set the web message callback for the port1
+      await port1.setWebMessageCallback((message) async {
+        print("Message coming from the JavaScript side: $message");
+        // when it receives a message from the JavaScript side, respond back with another message.
+        await port1.postMessage(WebMessage(data: message! + " and back"));
+      });
+
+      // transfer port2 to the webpage to initialize the communication
+      await controller.webViewController?.postWebMessage(message: WebMessage(data: controller.repoName, ports: [port2]), targetOrigin: Uri.parse("*"));
+    }
   }
 }
