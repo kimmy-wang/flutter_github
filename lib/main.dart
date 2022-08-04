@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'app/routes/app_pages.dart';
 import 'lang/translation_service.dart';
 import 'common/utils/logger_utils.dart';
+import 'services/auth_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,6 +51,11 @@ class FlutterGitHubApp extends StatelessWidget {
       locale: TranslationService.locale,
       fallbackLocale: TranslationService.fallbackLocale,
       translations: TranslationService(),
+      initialBinding: BindingsBuilder(
+            () {
+          Get.put(AuthService());
+        },
+      ),
     );
   }
 }
