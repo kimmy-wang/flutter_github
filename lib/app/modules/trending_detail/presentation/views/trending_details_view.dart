@@ -83,7 +83,7 @@ class TrendingDetailsView extends GetView<TrendingDetailController> {
             },
             onLoadStop: (_controller, url) async {
               controller.pullToRefreshController.endRefreshing();
-              registerMessageChannel();
+              await registerMessageChannel();
               // setState(() {
               //   this.url = url.toString();
               //   urlController.text = this.url;
@@ -118,6 +118,8 @@ class TrendingDetailsView extends GetView<TrendingDetailController> {
     controller.webViewController?.addJavaScriptHandler(handlerName: 'receiveHandler', callback: (args) {
       // print arguments coming from the JavaScript side!
       print(args);
+
+      Get.snackbar('title', args[0]);
 
       // return data to the JavaScript side!
       return {
