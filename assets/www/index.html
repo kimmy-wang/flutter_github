@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- Copyright 2013 The Flutter Authors. All rights reserved.
+Use of this source code is governed by a BSD-style license that can be
+found in the LICENSE file. -->
+<html lang="en">
+<head>
+    <title>Load file or HTML string example</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+
+<h1>Local demo page</h1>
+
+<button onclick="send();">Send To Flutter</button>
+
+<div id="test"></div>
+
+</body>
+<script type="text/javascript">
+function send() {
+  if (window.Toaster) {
+    window.Toaster.postMessage('hello from javascript');
+  }
+}
+
+function test() {
+  alert('test')
+  document.getElementById("test").innerText = "Test";
+}
+</script>
+</html>

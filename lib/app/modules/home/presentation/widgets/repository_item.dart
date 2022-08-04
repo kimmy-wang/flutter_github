@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_github/common/extensions/widget_nested.dart';
-import 'package:flutter_github/common/utils/color_util.dart';
-import 'package:flutter_github/pages/home/domain/entity/trending_model.dart';
+
+import '../../../../../common/extensions/widget_nested.dart';
+import '../../../../../common/utils/color_util.dart';
+import '../../domain/entity/trending_model.dart';
 
 class RepositoryItem extends StatefulWidget {
   final int index;
